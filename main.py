@@ -47,7 +47,9 @@ async def handle_upload(request):
         else:
             filename = original_filename
 
+        filename = os.path.basename(filename)
         filepath = os.path.join(UPLOADS_DIR, filename)
+
 
         # Check if the file already exists and handle duplicates
         if os.path.exists(filepath):
@@ -136,7 +138,9 @@ def check_auth(auth_header):
 
 async def handle_download(request):
     filename = request.match_info.get('filename')
+    filename = os.path.basename(filename)
     filepath = os.path.join(UPLOADS_DIR, filename)
+
 
     # Check if the file exists
     if not os.path.exists(filepath):
