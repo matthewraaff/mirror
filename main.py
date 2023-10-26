@@ -48,8 +48,8 @@ async def handle_upload(request):
             filename = original_filename
 
         filename = os.path.basename(filename)
-        filepath = os.path.join(UPLOADS_DIR, filename)
-
+        filepath = os.path.abspath(os.path.join(UPLOADS_DIR, filename)) # Prevent path traversal
+        
 
         # Check if the file already exists and handle duplicates
         if os.path.exists(filepath):
